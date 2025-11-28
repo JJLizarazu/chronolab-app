@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'timers/timer_dashboard.dart';
 import 'tools/tools_menu.dart';
 import 'settings_screen.dart';
+import '../utils/notification_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +18,17 @@ class _HomeScreenState extends State<HomeScreen> {
     const TimerDashboard(),
     const ToolsMenu(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _initServices();
+  }
+
+  void _initServices() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    await NotificationHelper.init();
+  }
 
   @override
   Widget build(BuildContext context) {

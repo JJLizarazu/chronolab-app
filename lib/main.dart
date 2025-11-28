@@ -3,11 +3,9 @@ import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'providers/timer_provider.dart';
 import 'providers/theme_provider.dart';
-import 'utils/notification_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationHelper.init();
   runApp(const ChronoLabApp());
 }
 
