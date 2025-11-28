@@ -21,7 +21,7 @@ class TimerProvider with ChangeNotifier {
   bool _isWakelockEnabled = false;
 
   bool _isGridView = false;
-  bool _enableOvertime = true;
+  bool _enableOvertime = false;
   String _selectedSound = 'alarm_1.mp3';
 
   List<TimerModel> get timers => _timers;
@@ -47,7 +47,7 @@ class TimerProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     _isGridView = prefs.getBool('cfg_grid_view') ?? false;
-    _enableOvertime = prefs.getBool('cfg_overtime') ?? true;
+    _enableOvertime = prefs.getBool('cfg_overtime') ?? false;
     _selectedSound = prefs.getString('cfg_sound') ?? 'alarm_1.mp3';
 
     if (prefs.containsKey('saved_timers')) {
@@ -185,7 +185,10 @@ class TimerProvider with ChangeNotifier {
             NotificationHelper.showTimerFinished(t.id, t.label);
             _addToHistory(t.label, t.initialDuration.inSeconds, t.color.value);
             justFinished = true;
-            if (!_enableOvertime) t.isRunning = false;
+
+            if (!_enableOvertime) {
+              t.isRunning = false;
+            }
           }
         }
       }
